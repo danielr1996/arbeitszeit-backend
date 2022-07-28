@@ -1,8 +1,9 @@
-import {Controller, Get, Query} from '@nestjs/common';
+import {Controller, Get, Headers, Query, UseGuards} from '@nestjs/common';
 import {TimeentryService} from "./timeentrysource/timeentry.service";
 import {Temporal} from "@js-temporal/polyfill";
 import {UsersService} from "./user/user.service";
 import Duration = Temporal.Duration;
+import {AuthGuard} from "./auth/jwt-auth.guard";
 
 @Controller()
 export class AppController {
@@ -13,6 +14,7 @@ export class AppController {
     }
 
     @Get()
+    @UseGuards(AuthGuard)
     async getHello(@Query('user') id): Promise<any> {
         const user = await this.userService.getUser(id)
         const timeentries = await this.timeEntryService.getTimeEntriesFromUser(user)
