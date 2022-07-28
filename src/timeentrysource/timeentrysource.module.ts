@@ -4,11 +4,9 @@ import {TestDataService} from "./testdata.service";
 import {TimeentryService} from "./timeentry.service";
 import {ServiceType} from "./genericTimeEntryInterface";
 import {UserModule} from "../user/user.module";
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {DayEntryEntity, TimeEntryEntity} from "./timeentry.entity";
 
 @Module({
-    imports: [UserModule, TypeOrmModule.forFeature([TimeEntryEntity, DayEntryEntity])],
+    imports: [UserModule],
     providers: [
         {
             provide: ServiceType.CLOCKIFY_SERVICE,

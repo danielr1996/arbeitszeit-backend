@@ -1,18 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import {ServiceType} from "../timeentrysource/genericTimeEntryInterface";
 import {InjectRepository} from "@nestjs/typeorm";
 import {UserEntity} from "./user.entity";
 import { Repository } from 'typeorm';
-
-// export type User = {
-//     id: number,
-//     name: string,
-//     services: {
-//         type: ServiceType
-//         config?: { [key in string]: string }
-//     }[]
-// }
-
 
 @Injectable()
 export class UsersService {
