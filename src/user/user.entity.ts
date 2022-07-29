@@ -1,21 +1,15 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn,PrimaryColumn, OneToMany, ManyToOne} from 'typeorm';
 import {ServiceType} from "../timeentrysource/genericTimeEntryInterface";
 import {TypeOrmJsonTransformer} from "../lib/typeormjsontransformer";
-import {DayEntryEntity} from "../timeentrysource/timeentry.entity";
 
 @Entity()
 export class UserEntity {
-    @PrimaryGeneratedColumn()
-    id?: number
-
-    @Column()
-    name: string
+    @PrimaryColumn()
+    id: string
 
     @OneToMany(() => ServiceEntity, service => service.user, {eager: true, cascade: true})
-    services: ServiceEntity[]
+    services?: ServiceEntity[]
 
-    @OneToMany(()=>DayEntryEntity, timeentry=>timeentry.user)
-    dayEntries: DayEntryEntity[]
 }
 
 

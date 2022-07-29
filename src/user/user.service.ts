@@ -1,18 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import {ServiceType} from "../timeentrysource/genericTimeEntryInterface";
 import {InjectRepository} from "@nestjs/typeorm";
 import {UserEntity} from "./user.entity";
 import { Repository } from 'typeorm';
-
-// export type User = {
-//     id: number,
-//     name: string,
-//     services: {
-//         type: ServiceType
-//         config?: { [key in string]: string }
-//     }[]
-// }
-
 
 @Injectable()
 export class UsersService {
@@ -23,7 +12,11 @@ export class UsersService {
         return await this.userRepository.find()
     }
 
-    async getUser(id: number): Promise<UserEntity> {
+    async addUser(user: UserEntity){
+        return await this.userRepository.save(user)
+    }
+
+    async getUser(id: string): Promise<UserEntity> {
         return await this.userRepository.findOneBy({id})
     }
 }
