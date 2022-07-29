@@ -1,9 +1,9 @@
-import {Controller, Get, Headers, Query, UseGuards} from '@nestjs/common';
+import {Controller, Get, Headers, Query, Req, UseGuards} from '@nestjs/common';
 import {TimeentryService} from "./timeentrysource/timeentry.service";
 import {Temporal} from "@js-temporal/polyfill";
 import {UsersService} from "./user/user.service";
 import Duration = Temporal.Duration;
-import {AuthGuard} from "./auth/jwt-auth.guard";
+import {AuthGuard, Role, Roles} from "./auth/jwt-auth.guard";
 
 @Controller()
 export class AppController {
@@ -15,8 +15,9 @@ export class AppController {
 
     @Get()
     @UseGuards(AuthGuard)
-    async getHello(@Query('user') id): Promise<any> {
-        const user = await this.userService.getUser(id)
+    @Roles(Role.User)
+    async getHello(@Req() req: Request): Promise<any> {
+        const user = await this.userService.getUser(req['userId'])
         const timeentries = await this.timeEntryService.getTimeEntriesFromUser(user)
         const groupedByDay: { day: Temporal.PlainDate,timeEntries: any[] }[] = Object.values(timeentries.reduce((acc: { [key: string]: { day: Temporal.PlainDate, timeEntries: any[] } }, t) => {
             const key = t.begin.toPlainDate().toString();

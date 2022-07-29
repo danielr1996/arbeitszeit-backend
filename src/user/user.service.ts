@@ -12,7 +12,11 @@ export class UsersService {
         return await this.userRepository.find()
     }
 
-    async getUser(id: number): Promise<UserEntity> {
+    async addUser(user: UserEntity){
+        return await this.userRepository.save(user)
+    }
+
+    async getUser(id: string): Promise<UserEntity> {
         return await this.userRepository.findOneBy({id})
     }
 }
