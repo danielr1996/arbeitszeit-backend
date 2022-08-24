@@ -43,7 +43,7 @@ export class ClockifyService implements GenericTimeEntryInterface {
         }
         const {token} = config
         const user = await ClockifyService.getUser(token)
-        const res = await fetch(`https://api.clockify.me/api/v1/workspaces/${user.activeWorkspace}/user/${user.id}/time-entries?page-size=5000`, {headers: {'X-API-KEY': token}})
+        const res = await fetch(`https://api.clockify.me/api/v1/workspaces/${user.activeWorkspace}/user/${user.id}/time-entries?page-size=1000`, {headers: {'X-API-KEY': token}})
         const timeentries: ClockifyTimeEntry[] = await res.json()
         return timeentries.map(t => ({
             sourceType: ServiceType.CLOCKIFY_SERVICE,
