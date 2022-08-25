@@ -1,4 +1,4 @@
-import {Injectable, CanActivate, ExecutionContext} from '@nestjs/common';
+import {Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus} from '@nestjs/common';
 import * as jose from "jose";
 import {ConfigService} from "@nestjs/config";
 import {Reflector} from '@nestjs/core';
@@ -27,8 +27,7 @@ export class AuthGuard implements CanActivate {
         const request = context.switchToHttp().getRequest();
         let token = request.headers.authorization
         if (!token) {
-            console.log('Unauthenticated, no Token')
-            return false
+            throw new HttpException('No Token provided', HttpStatus.UNAUTHORIZED)
         }
         token = token.replace("Bearer ", "")
         const JWKS = jose.createRemoteJWKSet(new URL(this.configService.get('JWKS_URL')))
@@ -39,10 +38,7 @@ export class AuthGuard implements CanActivate {
                 context.getHandler(),
                 context.getClass(),
             ]);
-            if (!requiredRoles) {
-                return true;
-            }
-            if (!requiredRoles.some((role) => roles.includes(role))) {
+            if (requiredRoles && !requiredRoles.some((role) => roles.includes(role))) {
                 console.log('Unauthorized, Roles mismatch, required roles: ',requiredRoles)
                 return false
             }
@@ -53,8 +49,8 @@ export class AuthGuard implements CanActivate {
             request.userId=user.id
             return true
         } catch (e) {
-            console.log('Unauthenticated, Wrong Token')
-            return false
+            console.log(e)
+            throw new HttpException('Token provided, but verification failed', HttpStatus.UNAUTHORIZED)
         }
     }
 }
