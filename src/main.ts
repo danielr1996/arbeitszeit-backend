@@ -9,6 +9,7 @@ async function bootstrap() {
       .setDescription('The arbeitszeit API description')
       .setVersion('1.0')
       .addServer('http://localhost:3030')
+      .addServer('https://arbeitszeitapi.app.danielr1996.de')
       .build();
   const document = await SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('openapi', app, document);

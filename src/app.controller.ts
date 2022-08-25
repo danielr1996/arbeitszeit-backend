@@ -5,6 +5,14 @@ import {UsersService} from "./user/user.service";
 import Duration = Temporal.Duration;
 import {AuthGuard, Role, Roles} from "./auth/jwt-auth.guard";
 
+
+export class TimeSummary{
+    daysWorked: Temporal.Duration
+    shouldHaveWorked: Temporal.Duration
+    actuallyWorked: Temporal.Duration
+    saldo: Temporal.Duration
+}
+
 @Controller()
 export class AppController {
     constructor(
@@ -13,10 +21,10 @@ export class AppController {
     ) {
     }
 
-    @Get()
+    @Get('/time/summary')
     @UseGuards(AuthGuard)
     @Roles(Role.User)
-    async getHello(@Req() req: Request): Promise<any> {
+    async getTimeSummary(@Req() req: Request): Promise<TimeSummary> {
         const user = await this.userService.getUser(req['userId'])
         const timeentries = await this.timeEntryService.getTimeEntriesFromUser(user)
         const groupedByDay: { day: Temporal.PlainDate,timeEntries: any[] }[] = Object.values(timeentries.reduce((acc: { [key: string]: { day: Temporal.PlainDate, timeEntries: any[] } }, t) => {

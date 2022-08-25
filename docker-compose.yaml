@@ -9,15 +9,15 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-  arbeitszeit-backend:
-    build:
-      context: .
-      dockerfile: 'Dockerfile'
-    ports:
-      - '3030:3030'
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USERNAME: postgres
-      DB_PASSWORD: postgres
-      DB_NAME: postgres
+#  arbeitszeit-backend:
+#    build:
+#      context: .
+#      dockerfile: 'Dockerfile'
+#    ports:
+#      - '3030:3030'
+#    environment:
+#      DB_HOST: db
+#      DB_PORT: 5432
+#      DB_USERNAME: postgres
+#      DB_PASSWORD: postgres
+#      DB_NAME: postgres

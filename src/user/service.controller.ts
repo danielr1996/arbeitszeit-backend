@@ -14,6 +14,7 @@ export class ServiceController {
 
     @Get()
     @UseGuards(AuthGuard)
+    @Roles(Role.User)
     async getServices(@Req() req: Request): Promise<ServiceEntity[]> {
         const user = await this.userService.getUser(req['userId'])
         return user.services
@@ -21,6 +22,7 @@ export class ServiceController {
 
     @Get('/:id')
     @UseGuards(AuthGuard)
+    @Roles(Role.User)
     async getService(@Req() req: Request, @Param("id") id: number): Promise<ServiceEntity> {
         const user = await this.userService.getUser(req['userId'])
         return user.services.filter(({id}) => id === id)[0]
@@ -28,6 +30,7 @@ export class ServiceController {
 
     @Post()
     @UseGuards(AuthGuard)
+    @Roles(Role.User)
     async addService(@Req() req: Request, @Body() service: ServiceEntity): Promise<void> {
         const user = await this.userService.getUser(req['userId'])
         user.services.push(service)
@@ -36,12 +39,10 @@ export class ServiceController {
 
     @Delete('/:id')
     @UseGuards(AuthGuard)
+    @Roles(Role.User)
     async deleteService(@Req() req: Request, @Param("id") id: string): Promise<any> {
         const user = await this.userService.getUser(req['userId'])
         const service = user.services.filter(({id}) => id === id)[0]
         return await this.servicesService.deleteService(service.id)
-        // console.log(typeof id)
-        // console.log(user.services.filter(service => service.id !== 1))
-        // await this.userService.addUser(user)
     }
 }
