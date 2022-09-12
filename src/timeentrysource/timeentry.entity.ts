@@ -1,11 +1,11 @@
 import {Temporal} from "@js-temporal/polyfill";
 import {ServiceType} from "./genericTimeEntryInterface";
 
-type ActiveTimeEntry = {
+export type ActiveTimeEntry = {
     active: true
 }
 
-type ClosedTimeEntry = {
+export type ClosedTimeEntry = {
     active: false
     end: Temporal.ZonedDateTime,
     duration: Temporal.Duration,
