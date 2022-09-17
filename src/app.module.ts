@@ -3,7 +3,6 @@ import {Module} from "@nestjs/common";
 import {UserModule} from "./user.module/user.module";
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {PostgresModule} from "./postgres.module/postgres.module";
-import {TimesheetService} from "./source.module/timesheet.service";
 import {SourceModule} from "./source.module/source.module";
 import {TimesheetModule} from "./timesheet.module/timesheet.module";
 import {AuthModule} from "./auth.module/auth.module";
