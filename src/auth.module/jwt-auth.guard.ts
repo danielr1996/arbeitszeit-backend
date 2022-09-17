@@ -3,7 +3,7 @@ import * as jose from "jose";
 import {ConfigService} from "@nestjs/config";
 import {Reflector} from '@nestjs/core';
 import {SetMetadata} from '@nestjs/common';
-import {UsersService} from "../user/user.service";
+import {UserRepository} from "../user.module/user.repository";
 
 
 export enum Role {
@@ -17,7 +17,7 @@ export const Roles = (...roles: Role[]) => SetMetadata(ROLES_KEY, roles);
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(
-        private readonly userService: UsersService,
+        private readonly userRepo: UserRepository,
         private readonly configService: ConfigService,
         private reflector: Reflector,
     ) {
@@ -43,8 +43,8 @@ export class AuthGuard implements CanActivate {
                 return false
             }
             const user = {id: payload['sub']}
-            if(!await this.userService.getUser(user.id)){
-                await this.userService.addUser(user)
+            if(!await this.userRepo.getUser(user.id)){
+                await this.userRepo.addUser(user)
             }
             request.userId=user.id
             return true

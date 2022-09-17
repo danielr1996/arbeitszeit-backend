@@ -1,7 +1,8 @@
-import {Module} from '@nestjs/common';
+import {Global, Module} from '@nestjs/common';
 import {AuthGuard} from "./jwt-auth.guard";
-import {UserModule} from "../user/user.module";
+import {UserModule} from "../user.module/user.module";
 
+@Global()
 @Module({
     imports: [UserModule],
     providers: [AuthGuard],

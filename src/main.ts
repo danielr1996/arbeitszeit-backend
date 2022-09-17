@@ -1,8 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
+import {toTemporalInstant } from '@js-temporal/polyfill'
+import {runMigrations} from "./migrations/migrations";
+// @ts-ignore
+Date.prototype.toTemporalInstant = toTemporalInstant
 
 async function bootstrap() {
+  await runMigrations()
   const app = await NestFactory.create(AppModule, {cors: true});
   const config = new DocumentBuilder()
       .setTitle('arbeitszeit-backend')

@@ -1,0 +1,19 @@
+- [x] make dailyworkingtime updateable from api (and ui)
+- [ ] make service enabled/disabledfrom ui
+- [ ] add sync button
+- [x] use authentication from old project
+- [x] use service add/update/Delete from old project
+- [x] Dockerfile, etc. from old project
+- [x] write tests
+- [x] delete all entries before fetching
+- [x] database migration script
+- [x] Temporal.Duration from Databse for negative and null values
+- [x] create summary controller
+- [ ] compodoc
+- [ ] healthcheck
+- [ ] exception filters
+- [ ] fastify
+- [ ] csrf and helmet
+- [ ] versioning
+- [ ] use pg-promise
+- [ ] compare database against fetched entries and delete non existent entries from database
