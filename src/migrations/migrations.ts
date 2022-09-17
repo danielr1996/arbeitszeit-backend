@@ -1,14 +1,16 @@
 import {Pool} from "pg"
 import {JSONStorage, Umzug} from "umzug"
+import * as dotenv from 'dotenv'
+dotenv.config()
 require('ts-node/register')
 
 const commonOptions= {
     context: new Pool({
-        host: 'localhost',
-        port: 5432,
-        user: 'postgres',
-        password: 'postgres',
-        database: 'postgres',
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
     }),
     storage: new JSONStorage(),
     logger: console,

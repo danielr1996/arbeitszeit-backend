@@ -28,6 +28,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.0.4",
+    "dotenv": "^16.0.2",
     "jose": "^4.8.3",
     "pg": "^8.7.3",
     "rimraf": "^3.0.2",
