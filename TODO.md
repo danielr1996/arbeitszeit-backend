@@ -2,6 +2,7 @@
 - [ ] make service enabled/disabledfrom ui
 - [ ] add sync button
 - [ ] fix 404 in ui
+- [x] use database as migrations storage
 - [x] use authentication from old project
 - [x] use service add/update/Delete from old project
 - [x] Dockerfile, etc. from old project
