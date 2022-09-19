@@ -2,7 +2,7 @@ import {Pool} from "pg"
 import {JSONStorage, Umzug} from "umzug"
 import * as dotenv from 'dotenv'
 dotenv.config()
-require('ts-node/register')
+import 'ts-node/register'
 
 const commonOptions= {
     context: new Pool({
